@@ -1,2 +1,2 @@
-# monopoly
+# Monopoly
 A recreation of monopoly!
