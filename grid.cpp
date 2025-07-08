@@ -106,14 +106,16 @@ int House::execute(Player* curr){
         else{
             cout << curr << " landed on " << owner_ << "'s property. You have to pay " << rent_ << " for rent" << endl;
 
-            if(curr -> checkMonopoly() && (curr -> getMonopolyID() == houseID_)){
+            if(owner_ -> checkMonopoly() && (owner_ -> getMonopolyID() == houseID_)){
                 cout << "Since " << owner_ << "has a monopoly in this set, your rent will go up" << endl;
+                cout << "Now you have to pay " << rent_ * 1.2 << endl;
+                owner_ -> changeBudget(rent_ * 1.2);
+                curr -> changeBudget(rent_ * -1.2);
             }
 
             else{
-                cout << "You're renting this house. You have to pay " << price_ << endl;
-                owner_ -> changeBudget(price_);
-                owner_ -> changeBudget(price_ * -1);
+                owner_ -> changeBudget(rent_);
+                curr -> changeBudget(rent_ * -1);
             }
         }
     }

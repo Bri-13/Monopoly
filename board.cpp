@@ -183,7 +183,7 @@ void Board::playerAdvance(int dice){
     playerLocation[turn_] += dice;
     if(playerLocation[turn_] >= 40){
         playerLocation[turn_] -= 40;
-        board[0] -> execute(playerOrder[0]);
+        board[0] -> execute(playerOrder[turn_]);
     }
     displayBoxes_[playerLocation[turn_]].setPlayer(turn_);
 

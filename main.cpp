@@ -32,6 +32,8 @@ int main(int argc, char* argv[]){
         if(b.getPlayer() -> getInJail()){
             cout << b.getPlayer() << " is in jail, your turn has been skipped" << endl;
             b.getPlayer() -> changeInJail();
+            b.increaseTurn();
+            cout << "Hand it over to " << b.getPlayer() << endl;
             continue;
         }
         
@@ -63,13 +65,15 @@ int main(int argc, char* argv[]){
                         cout << "=============" << i+1 << "=============" << endl;
                         cout << myHouse[i] << endl;
                     }
-                    cout << "Choose the ID of the house you'd like to sell, or 0 if you want to go back" << endl;
+                    cout << "Choose the house you'd like to sell and input the number attached on top of the house information. " 
+                         << "If wish to go back enter 0." << endl;
+
                     cin >> houseInput;
                     if(cin.fail()){
                         cin.clear();
                         cin.ignore(250, '\n');
                         //throw exception
-                        throw invalid_argument("Please enter a valid input (0-3).");
+                        throw invalid_argument("Please enter a valid input (0-).");
                         //After throwing exception how do we know the player can come back to this? 
                     }
 
@@ -79,7 +83,7 @@ int main(int argc, char* argv[]){
                     }
 
                     while(houseInput > myHouse.size() || houseInput <= 0){
-                        cout << "Please enter a valid number to sell or 0 to go back" << endl;
+                        cout << "Please enter a valid number of the house you wish to sell or 0 to go back" << endl;
                         cin >> houseInput;
                         if(cin.fail()){
                             cin.clear();
@@ -90,11 +94,7 @@ int main(int argc, char* argv[]){
 
                     houseID = myHouse[houseInput-1] -> getID();
 
-                    if(b.getPlayer() -> sell(myHouse[houseInput-1])){
-                        cout << "House " << houseID << " was successfully sold" << endl;
-                    }
-
-                    else{
+                    if(!(b.getPlayer() -> sell(myHouse[houseInput-1]))){
                         cout << "There was an error in selling House." << houseID << endl;
                     }
                 }

@@ -15,12 +15,12 @@ public:
     void changeFreeJail(int change);   // setter
     int getBudget();  // getter
     int getFreeJail();   // getter
-    void changeInJail(); 
-    bool getInJail(); 
-    void playerStat() const;
+    void changeInJail(); //setter
+    bool getInJail(); //getter
+    void playerStat() const; 
     void buyHouse(House* house);
-    bool checkMonopoly()const;
-    int getMonopolyID()const;
+    bool checkMonopoly()const; //getter
+    int getMonopolyID()const; //getter
     const std::vector<House*> houseOwn()const;
     friend std::ostream& operator<<(std::ostream& ostr, const Player* op);
     friend std::ostream& operator<<(std::ostream& ostr, const std::vector<House*> op);

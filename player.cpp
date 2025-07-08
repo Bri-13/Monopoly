@@ -25,39 +25,39 @@ void Player::changeBudget(int change){
 bool Player::sell(House* sell){
     bool owned = false;
     int index = -1;
-    int count = 0;
     for(size_t i = 0; i < own.size(); i++){
         if(sell == own[i]){
             owned = true;
             index = i;
-            count++;
-        }
-        else if(sell -> getType() == own[i] -> getType()){
-            count++;
+            break;
         }
     }
 
     if(owned){
-        int input;
-        if(count == 3){
+        int input = 1;
+        if(hasMonopoly && sell -> getID() == getMonopolyID()){
             cout << "You have a Monopoly in this set. Are you sure you want to sell it?" << endl;
             cout << "Enter 1 to confirm, 2 otherwise" << endl;
             cin >> input;
             while(cin.fail()){
                 cout << "Enter 1 to confirm, 2 otherwise" << endl;
-            }
+            }   
         }
 
         if(input == 1){
             budget += own[index]->getPrice();
             own.erase(own.begin()+index-1);
             hasMonopoly = false;
-            return true;
+            cout << " " << endl;
+
+            cout << "House " << sell -> getID() << " was successfully sold" << endl;
         }
         
         else{
-            return false;
+            cout << "The transaction has been cancelled" << endl;
         }
+
+        return true;
     }
 
     else{
@@ -119,7 +119,7 @@ void Player::buyHouse(House* house){
     budget -= house -> getPrice();
     cout << "Remaining budget: " << budget << endl;
     own.push_back(house);
-    int count = 1;
+    int count = 0;
     for(size_t i = 0; i < own.size(); i++){
         if(own[i] -> getType() == house -> getType()){
             count++;
